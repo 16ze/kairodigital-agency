@@ -22,7 +22,7 @@ Phase 1 livre le cœur opérationnel de Bookly :
 - Collaborateurs avec leur propre login OTP (géré par le pro)
 - Structure de plans (Plan Agenda / Plan Pro) avec quota SMS tracé
 
-**Hors scope Phase 1 :** Stripe, stocks, cartes cadeaux, export comptable, PWA offline, WhatsApp, campagnes SMS, CRM avancé, app mobile native, widget iframe externe, remboursements automatiques pawaPay (aucun refund — Phase 2).
+**Hors scope Phase 1 :** Stripe, stocks, cartes cadeaux, export comptable, PWA offline, WhatsApp, campagnes SMS, CRM avancé, app mobile native, widget iframe externe, remboursements automatiques pawaPay (aucun refund — Phase 2), sections marketing homepage (témoignages, tarifs, "comment ça marche").
 
 </domain>
 
@@ -55,7 +55,7 @@ Phase 1 livre le cœur opérationnel de Bookly :
 - **Lien disponible dès la fin de l'étape 1** (slug créé au signup). Page publique visible uniquement quand salon + ≥1 service + horaires configurés (page "en cours de configuration" sinon).
 - Horaires : **semaine type récurrente** par jour (Planity-style). Chaque jour : heure ouverture/fermeture + pause déjeuner optionnelle. Plusieurs plages horaires par jour supportées. Chaque collaborateur peut avoir ses propres horaires.
 - Après onboarding : redirection vers **agenda vue jour + bandeau "Votre salon est prêt — partagez votre lien"**.
-- **Pas de landing page marketing** en Phase 1. Signup direct : bookly.app/signup.
+- **Pas de landing page marketing** en Phase 1 pour les pros. Signup pro direct : bookly.app/pro/signup.
 
 ### Collaborateurs (Plan Pro)
 
@@ -115,6 +115,18 @@ Phase 1 livre le cœur opérationnel de Bookly :
 - SMS automatique 1h après fin du RDV → lien vers page d'avis `/review/[booking-token]`.
 - Notation : **étoiles 1-5 + commentaire optionnel**.
 - Avis publiés sur la page publique du salon (pas de modération manuelle Phase 1).
+
+### Homepage client (bookly.app)
+
+- **Layout hero 100vh** avec barre de recherche centrée (inspiré Planity, pas identique).
+- **Navbar fixe en haut** :
+  - Logo Bookly (gauche)
+  - Raccourcis catégories au centre : Barbier · Manucure · Coiffeur · Institut de beauté · Bien-être (liens vers recherche pré-filtrée)
+  - Droite : bouton "Je suis professionnel" (→ /pro/signup) + bouton "Mon compte" (→ /connexion client)
+- **Hero section** : fond clair, headline courte, barre de recherche unique au centre (input texte "Quel service ou salon ?") + bouton de recherche. Pas de géolocalisation GPS Phase 1 — l'utilisateur tape ville manuellement.
+- Design **proche de Planity mais distinct** : palette monochrome Bookly (#FFFFFF/#1A1A1A), pas de bleu Planity.
+- Page **indexée par Google** : metadata title/description, og:image, structured data.
+- Pas de section "comment ça marche" / témoignages / prix en Phase 1 — homepage minimaliste axée recherche.
 
 ### Page publique du salon
 
