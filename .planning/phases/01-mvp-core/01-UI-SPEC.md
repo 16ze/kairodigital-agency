@@ -54,9 +54,9 @@ Exceptions:
 | Role | Size | Weight | Line Height | Usage |
 |------|------|--------|-------------|-------|
 | Body | 14px | 400 (regular) | 1.5 | Paragraphs, descriptions, table cells, transaction rows |
-| Label | 14px | 500 (medium) | 1.4 | Form labels, nav items, stat labels, table headers |
+| Label | 14px | 600 (semibold) | 1.4 | Form labels, nav items, stat labels, table headers |
 | Heading | 20px | 600 (semibold) | 1.2 | Page titles, section headers, card titles |
-| Display | 28px | 700 (bold) | 1.1 | KPI numbers (CA jour, CA mois), hero headline on homepage |
+| Display | 28px | 600 (semibold) | 1.1 | KPI numbers (CA jour, CA mois), hero headline on homepage |
 
 Font stack: `'Inter', system-ui, -apple-system, sans-serif`
 
@@ -99,7 +99,7 @@ Additional rules:
 5. Online indicator dots (agenda Realtime connected)
 
 `#1A1A1A` (accent black) is used ONLY on:
-1. Primary action buttons (CTA "Reserver", "Encaisser", "Ajouter un service")
+1. Primary action buttons (CTA "Reserver", "Encaisser le paiement", "Ajouter un service")
 2. Active navigation items (sidebar/bottom nav)
 3. Page headings (h1, h2)
 4. Icon strokes
@@ -145,7 +145,7 @@ Additional rules:
 | AgendaWeekView | 7-column grid, condensed slots, desktop only |
 | BookingFlow | 3-step wizard (services > collaborator > info+OTP) |
 | KPICard | Stat card with label + large number + optional trend |
-| BottomNav | Mobile fixed bottom navigation (5 items) |
+| BottomNav | Mobile fixed bottom navigation (5 items, icon + text label pattern) |
 | SidebarNav | Desktop fixed sidebar navigation |
 | ServiceCard | Service display: name + duration + price + description + booking toggle |
 | SlotPicker | Available time slots grid for client booking |
@@ -173,9 +173,15 @@ Additional rules:
 **Mobile (< 1024px):**
 - No sidebar
 - Fixed bottom navigation bar (64px height, white background, top border `#E0E0E0`)
-- 5 icons: Agenda, Dashboard, Services, Clients, Parametres
-- Active icon: `#1A1A1A`, inactive: `#666666`
+- 5 items using **icon + text label** pattern (icon stacked above visible text label, not icon-only): Agenda, Dashboard, Services, Clients, Parametres
+- Active item: icon + label in `#1A1A1A`, inactive: icon + label in `#666666`
 - Top bar: Logo left, user avatar right, 56px height
+
+### Focal Point Declaration
+
+**Pro Agenda Screen (default post-login screen):**
+- **Primary focal point:** The current-day time grid column, with the current time indicator (horizontal red line spanning the column width at the current time position) as the visual anchor. The grid auto-scrolls to position the current time indicator at approximately 1/3 from the top of the viewport on load.
+- **Secondary focal point:** Empty slot tap affordance — tapping any empty 15-min slot opens the walk-in quick creation dialog. Empty slots have a subtle hover/press state (`#F5F5F5` background) to signal interactivity.
 
 ### Page Layouts
 
@@ -210,8 +216,8 @@ Additional rules:
 |---------|------|
 | Primary CTA (booking) | "Reserver" |
 | Primary CTA (walk-in) | "Ajouter un walk-in" |
-| Primary CTA (encaissement) | "Encaisser" |
-| Primary CTA (onboarding) | "Continuer" (steps 1-3), "Terminer" (step 4) |
+| Primary CTA (encaissement) | "Encaisser le paiement" |
+| Primary CTA (onboarding) | "Continuer" (steps 1-3), "Terminer la configuration" (step 4) |
 | Primary CTA (search) | "Rechercher" |
 
 ### Empty States
@@ -287,19 +293,19 @@ Linear with progress bar at top (25% increments).
 1. **Profil salon:** Nom, adresse, telephone, photo (optional upload). "Continuer".
 2. **Services:** Add services (nom, duree, prix FCFA, description optionnelle, paiement config). Minimum 1 required. "Continuer".
 3. **Horaires:** Weekly schedule per day (ouverture/fermeture + pause optionnelle). Default 9h-18h. "Continuer".
-4. **Equipe (optionnel):** Add collaborators (nom, telephone). Can skip. "Terminer".
+4. **Equipe (optionnel):** Add collaborators (nom, telephone). Can skip. "Terminer la configuration".
 
 ### Agenda Interactions
 
 - **Click empty slot:** Opens Dialog with walk-in quick form (30s target).
-- **Click existing appointment:** Opens Dialog with details + actions (Encaisser, Modifier, Annuler).
+- **Click existing appointment:** Opens Dialog with details + actions (Encaisser le paiement, Modifier, Annuler).
 - **Swipe left (mobile):** No swipe gestures in Phase 1 — tap only.
 - **Date navigation:** Left/right arrows + date picker calendar.
 - **View toggle:** Tabs component (Jour / Semaine). Week view desktop only (>= 1280px).
 
 ### Encaissement Flow
 
-1. Pro taps "Encaisser" on appointment.
+1. Pro taps "Encaisser le paiement" on appointment.
 2. Dialog shows: service(s), total amount FCFA.
 3. RadioGroup: Cash / Airtel Money.
 4. If Cash: single "Confirmer" button. Done.
