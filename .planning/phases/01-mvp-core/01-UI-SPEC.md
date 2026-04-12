@@ -1,7 +1,7 @@
 ---
 phase: 1
 slug: mvp-core
-status: draft
+status: approved
 shadcn_initialized: false
 preset: pending
 created: 2026-04-12
