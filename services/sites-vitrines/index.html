@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sites Vitrines — Kairo Digital</title>
+<meta name="description" content="Une identité digitale qui inspire confiance. Code sur mesure, design premium — zéro template, zéro Webflow bas de gamme.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#E9E0DA;--bg2:#F0E8E2;--ink:#1C1712;--muted:#8A7E76;
+  --rule:rgba(28,23,18,.1);
+  --serif:'Cormorant Garamond',Georgia,serif;
+  --sans:'DM Sans',system-ui,sans-serif;
+  --accent:#7A9E8C;
+}
+html{font-size:16px;scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-weight:300;-webkit-font-smoothing:antialiased}
+.sp-nav{padding:20px;border-bottom:1px solid var(--rule);display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;background:var(--bg);z-index:100}
+.sp-nav-logo{font-family:var(--serif);font-size:1.1rem;font-weight:600;text-decoration:none;color:var(--ink)}
+.sp-nav-back{font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);text-decoration:none;display:flex;align-items:center;gap:.5rem;transition:color .2s}
+.sp-nav-back:hover{color:var(--ink)}
+.sp-hero{padding:64px 20px;border-bottom:1px solid var(--rule);display:grid;grid-template-columns:1fr;gap:40px;align-items:start}
+.sp-eyebrow{font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:2rem}
+.sp-title{font-family:var(--serif);font-size:clamp(3.4rem,18vw,10rem);font-weight:500;line-height:.9;letter-spacing:-.04em}
+.sp-title em{font-style:italic;font-weight:300;color:var(--muted)}
+.sp-tagline{font-size:1rem;color:var(--muted);line-height:1.75;max-width:40ch;margin-bottom:2.5rem}
+.sp-cta-btn{display:inline-flex;align-items:center;gap:.8rem;background:var(--ink);color:var(--bg);padding:1rem 2.5rem;border-radius:100px;font-family:var(--sans);font-size:.75rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;transition:background .2s,gap .2s}
+.sp-cta-btn:hover{background:#2d2520;gap:1.1rem}
+.sp-section{padding:72px 20px;border-bottom:1px solid var(--rule)}
+.sp-section-label{font-family:var(--sans);font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:3.5rem;display:flex;align-items:center;gap:1rem}
+.sp-section-label::after{content:'';flex:1;height:1px;background:var(--rule)}
+.feat-grid{display:grid;grid-template-columns:1fr;gap:1px;background:var(--rule)}
+.feat-item{background:var(--bg);padding:36px 32px;transition:background .3s}
+.feat-item:hover{background:var(--bg2)}
+.feat-n{font-size:.62rem;color:var(--muted);letter-spacing:.12em;text-transform:uppercase;display:block;margin-bottom:1.2rem}
+.feat-title{font-family:var(--serif);font-size:1.3rem;font-weight:500;margin-bottom:.6rem;letter-spacing:-.01em}
+.feat-desc{font-size:.82rem;color:var(--muted);line-height:1.65}
+.process-list{list-style:none}
+.process-step{display:grid;grid-template-columns:36px 1fr;gap:18px;padding:36px 0;border-top:1px solid var(--rule);align-items:start}
+.process-step:last-child{border-bottom:1px solid var(--rule)}
+.ps-n{font-family:var(--serif);font-size:.85rem;color:var(--muted);padding-top:.2rem}
+.ps-title{font-family:var(--serif);font-size:1.6rem;font-weight:500;letter-spacing:-.02em;line-height:1.1}
+.ps-desc{grid-column:2;font-size:.82rem;color:var(--muted);line-height:1.65}
+.sp-cta-section{padding:80px 20px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:1.5rem}
+.sp-cta-eyebrow{font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+.sp-cta-big{font-family:var(--serif);font-size:clamp(3rem,7vw,8rem);font-weight:500;line-height:.95;letter-spacing:-.04em}
+.sp-cta-big em{font-style:italic;font-weight:300;color:var(--muted)}
+.sp-cta-note{font-size:.88rem;color:var(--muted);max-width:36ch;line-height:1.7}
+.sp-footer{padding:28px 20px;border-top:1px solid var(--rule);display:flex;flex-direction:column;align-items:flex-start;gap:18px}
+.sp-footer-logo{font-family:var(--serif);font-size:1rem;font-weight:600;color:var(--ink);text-decoration:none}
+.sp-footer-copy{font-size:.72rem;color:var(--muted)}
+.sp-footer-links{display:flex;flex-wrap:wrap;gap:1rem 1.5rem;list-style:none}
+.sp-footer-links a{font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color .2s}
+.sp-footer-links a:hover{color:var(--ink)}
+@media(min-width:760px){
+  .sp-nav{padding:24px 48px}
+  .sp-hero{grid-template-columns:1fr 1fr;padding:88px 48px;gap:56px;align-items:end}
+  .sp-section{padding:80px 48px}
+  .feat-grid{grid-template-columns:repeat(2,1fr)}
+  .process-step{grid-template-columns:56px 1fr 1fr;gap:40px}
+  .ps-desc{grid-column:auto}
+  .sp-cta-section{padding:104px 48px}
+  .sp-footer{padding:28px 48px;flex-direction:row;align-items:center}
+}
+@media(min-width:1040px){
+  .sp-nav{padding:24px 80px}
+  .sp-hero{padding:100px 80px;gap:80px}
+  .sp-section{padding:80px}
+  .feat-grid{grid-template-columns:repeat(3,1fr)}
+  .sp-cta-section{padding:120px 80px}
+  .sp-footer{padding:28px 80px}
+}
+</style>
+</head>
+<body>
+
+<nav class="sp-nav">
+  <a href="../../" class="sp-nav-logo">Kairo Digital</a>
+  <a href="../../" class="sp-nav-back">&#8592; Retour &agrave; l&rsquo;accueil</a>
+</nav>
+
+<section class="sp-hero">
+  <div>
+    <span class="sp-eyebrow">02 &mdash; Service</span>
+    <h1 class="sp-title">Sites<br><em>Vitrines</em></h1>
+  </div>
+  <div>
+    <p class="sp-tagline">Une identit&eacute; digitale qui m&eacute;rite sa place. Code sur mesure, design exclusif &mdash; z&eacute;ro template WordPress ni Webflow partag&eacute; avec 10&thinsp;000 autres marques.</p>
+    <a href="mailto:contact@kairodigital.fr" class="sp-cta-btn">D&eacute;marrer un projet &#8594;</a>
+  </div>
+</section>
+
+<section class="sp-section">
+  <div class="sp-section-label">Ce que vous obtenez</div>
+  <div class="feat-grid">
+    <div class="feat-item">
+      <span class="feat-n">01</span>
+      <h3 class="feat-title">Code 100&thinsp;% sur mesure</h3>
+      <p class="feat-desc">Pas de WordPress, pas de Webflow. Du code propre, maintenable, qui vous appartient vraiment &mdash; pas une licence mensuelle.</p>
+    </div>
+    <div class="feat-item">
+      <span class="feat-n">02</span>
+      <h3 class="feat-title">Design exclusif</h3>
+      <p class="feat-desc">Chaque &eacute;l&eacute;ment con&ccedil;u sp&eacute;cifiquement pour vous. Z&eacute;ro template, z&eacute;ro copier-coller de Dribbble &mdash; une identit&eacute; unique.</p>
+    </div>
+    <div class="feat-item">
+      <span class="feat-n">03</span>
+      <h3 class="feat-title">SEO technique</h3>
+      <p class="feat-desc">Architecture crawlable, balises s&eacute;mantiques propres, Core Web Vitals optimis&eacute;s. Une base solide pour vos efforts de r&eacute;f&eacute;rencement.</p>
+    </div>
+    <div class="feat-item">
+      <span class="feat-n">04</span>
+      <h3 class="feat-title">Mobile-first</h3>
+      <p class="feat-desc">Fluide, rapide, sans compromis sur aucune taille d&rsquo;&eacute;cran. Pas un site desktop r&eacute;tr&eacute;ci &mdash; un design pens&eacute; mobile d&egrave;s le d&eacute;part.</p>
+    </div>
+    <div class="feat-item">
+      <span class="feat-n">05</span>
+      <h3 class="feat-title">CMS optionnel</h3>
+      <p class="feat-desc">Si vous avez besoin d&rsquo;&eacute;diter du contenu vous-m&ecirc;me, on int&egrave;gre un CMS l&eacute;ger, simple et adapt&eacute; &agrave; votre niveau technique.</p>
+    </div>
+    <div class="feat-item">
+      <span class="feat-n">06</span>
+      <h3 class="feat-title">3 mois d&rsquo;accompagnement</h3>
+      <p class="feat-desc">Corrections, ajustements, questions techniques &mdash; inclus dans le prix. Vous n&rsquo;&ecirc;tes pas seul apr&egrave;s la livraison.</p>
+    </div>
+  </div>
+</section>
+
+<section class="sp-section">
+  <div class="sp-section-label">Comment on travaille</div>
+  <ol class="process-list">
+    <li class="process-step">
+      <span class="ps-n">01</span>
+      <span class="ps-title">Audit &amp; Brief</span>
+      <p class="ps-desc">On analyse vos concurrents, vos cibles, votre positionnement. On ne dessine rien avant d&rsquo;avoir compris ce qui vous diff&eacute;rencie vraiment.</p>
+    </li>
+    <li class="process-step">
+      <span class="ps-n">02</span>
+      <span class="ps-title">Maquette Figma</span>
+      <p class="ps-desc">Design haute fid&eacute;lit&eacute; pour validation avant d&rsquo;&eacute;crire une ligne de code. Un aller-retour de r&eacute;visions inclus. On ne code que ce qui est valid&eacute;.</p>
+    </li>
+    <li class="process-step">
+      <span class="ps-n">03</span>
+      <span class="ps-title">D&eacute;veloppement</span>
+      <p class="ps-desc">Code propre, Next.js ou HTML optimis&eacute; selon le besoin. Mobile-first, anim&eacute; avec soin, accessible. Aucune d&eacute;pendance inutile.</p>
+    </li>
+    <li class="process-step">
+      <span class="ps-n">04</span>
+      <span class="ps-title">R&eacute;visions &amp; Tests</span>
+      <p class="ps-desc">2 cycles de retours inclus. Tests cross-browser sur Chrome, Safari, Firefox. Audit performance et accessibilit&eacute; de base.</p>
+    </li>
+    <li class="process-step">
+      <span class="ps-n">05</span>
+      <span class="ps-title">Mise en ligne</span>
+      <p class="ps-desc">D&eacute;ploiement, configuration DNS, certificat SSL, documentation de maintenance. Votre site est en production &mdash; et vous savez comment il fonctionne.</p>
+    </li>
+  </ol>
+</section>
+
+<section class="sp-cta-section">
+  <span class="sp-cta-eyebrow">Votre site actuel vous repr&eacute;sente-t-il vraiment&nbsp;?</span>
+  <h2 class="sp-cta-big">Construisons<br><em>le v&ocirc;tre.</em></h2>
+  <p class="sp-cta-note">D&eacute;crivez votre projet &mdash; on r&eacute;pond sous 24&thinsp;h avec une approche et un devis indicatif.</p>
+  <a href="mailto:contact@kairodigital.fr" class="sp-cta-btn">D&eacute;marrer un projet &#8594;</a>
+</section>
+
+<footer class="sp-footer">
+  <a href="../../" class="sp-footer-logo">Kairo Digital</a>
+  <span class="sp-footer-copy">&copy; 2026 &mdash; Agence Web &amp; IA, France</span>
+  <ul class="sp-footer-links">
+    <li><a href="../../#services">Services</a></li>
+    <li><a href="../../#work">Projets</a></li>
+    <li><a href="mailto:contact@kairodigital.fr">Contact</a></li>
+  </ul>
+</footer>
+
+</body>
+</html>

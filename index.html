@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kairo Digital — Agence Web & IA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#E9E0DA;--bg2:#F0E8E2;--ink:#1C1712;--muted:#8A7E76;
+  --rule:rgba(28,23,18,.1);
+  --serif:'Cormorant Garamond',Georgia,serif;
+  --sans:'DM Sans',system-ui,sans-serif;
+  --c1:#C8956A;--c2:#7A9E8C;--c3:#CC6655;
+  --c4:#5C7A8F;--c5:#D4A84B;--c6:#9B7BB0;
+  --c7:#C27A6A;--c8:#6B8A7A;--c9:#B85C3C;
+}
+html{font-size:16px;scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-weight:300;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+
+/* CURSOR */
+.cur{display:none;width:10px;height:10px;background:var(--ink);border-radius:50%;position:fixed;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .35s ease,height .35s ease,opacity .2s;mix-blend-mode:multiply}
+.cur.big{width:52px;height:52px}
+
+/* HERO */
+.hero{position:relative;width:100%;min-height:100svh;overflow:hidden;display:flex;align-items:center;justify-content:center;padding:20px;background:var(--bg)}
+.hero-media{position:absolute;inset:10px;border-radius:14px;overflow:hidden;background:var(--bg);box-shadow:0 24px 80px rgba(28,23,18,.18)}
+.hero-media img{width:100%;height:100%;object-fit:cover;display:block}
+.menu-toggle{position:absolute;left:50%;bottom:22px;transform:translateX(-50%);z-index:35;width:52px;height:52px;border-radius:50%;border:1px solid rgba(28,23,18,.16);background:rgba(233,224,218,.74);backdrop-filter:blur(14px);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;padding:0;cursor:pointer}
+.menu-toggle span{display:block;width:20px;height:1.5px;background:var(--ink);border-radius:99px;transition:transform .25s ease}
+.bottom-nav{display:none;position:absolute;right:20px;bottom:20px;left:20px;z-index:20;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.bottom-nav a{display:inline-flex;align-items:center;justify-content:center;min-height:40px;font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink);text-decoration:none;font-weight:500;font-family:var(--sans);background:rgba(233,224,218,.68);border:1px solid rgba(28,23,18,.14);border-radius:100px;padding:.55rem .75rem;backdrop-filter:blur(12px);transition:background .25s,transform .2s}
+.bottom-nav a:hover{background:rgba(28,23,18,.16);transform:translateY(-2px)}
+.mobile-menu{position:fixed;inset:0;z-index:80;background:var(--bg);display:flex;flex-direction:column;justify-content:flex-end;padding:28px 22px 34px;transform:translateY(100%);visibility:hidden;transition:transform .55s cubic-bezier(.16,1,.3,1),visibility 0s linear .55s}
+.mobile-menu.is-open{transform:translateY(0);visibility:visible;transition:transform .55s cubic-bezier(.16,1,.3,1),visibility 0s}
+.mobile-menu-close{position:absolute;right:22px;top:22px;width:52px;height:52px;border-radius:50%;border:1px solid rgba(28,23,18,.16);background:rgba(255,255,255,.28);display:flex;align-items:center;justify-content:center;padding:0;cursor:pointer}
+.mobile-menu-close::before,.mobile-menu-close::after{content:'';position:absolute;width:20px;height:1.5px;background:var(--ink);border-radius:99px}
+.mobile-menu-close::before{transform:rotate(45deg)}
+.mobile-menu-close::after{transform:rotate(-45deg)}
+.mobile-menu-links{display:flex;flex-direction:column;gap:8px;list-style:none}
+.mobile-menu-links a{display:flex;align-items:center;justify-content:space-between;padding:18px 0;border-top:1px solid var(--rule);font-family:var(--serif);font-size:clamp(2.6rem,14vw,5.5rem);line-height:.95;letter-spacing:-.04em;color:var(--ink);text-decoration:none}
+.mobile-menu-links li:last-child a{border-bottom:1px solid var(--rule)}
+.floatie{position:absolute;pointer-events:none;will-change:transform;transition:transform .05s linear;scale:.62}
+.f-circle{border-radius:50%}
+.f-pill{border-radius:100px}
+.f-blob{border-radius:60% 40% 50% 50%/40% 50% 60% 50%}
+.f-tri{width:0!important;height:0!important;background:transparent!important;border-style:solid}
+.f-ring{background:transparent!important;border-radius:50%;border:3px solid currentColor}
+.f-star{background:transparent!important;display:flex;align-items:center;justify-content:center;font-size:inherit}
+.f-code{font-family:monospace;font-size:.65rem;letter-spacing:.04em;background:rgba(28,23,18,.07)!important;border-radius:4px;padding:4px 8px;white-space:nowrap}
+
+/* TICKER */
+.ticker{border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);padding:16px 0;overflow:hidden}
+.ticker-track{display:flex;white-space:nowrap;will-change:transform;animation:tscroll 28s linear infinite}
+.ticker-item{display:inline-flex;align-items:center;gap:1.5rem;padding:0 2rem;font-family:var(--sans);font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);flex-shrink:0}
+.ticker-sep{color:var(--c1);font-size:.55rem;opacity:.8}
+@keyframes tscroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
+/* SECTIONS */
+.section{padding:72px 20px;border-top:1px solid var(--rule)}
+.s-label{font-family:var(--sans);font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:4rem;display:flex;align-items:center;gap:1rem}
+.s-label::after{content:'';flex:1;height:1px;background:var(--rule)}
+
+/* SERVICES */
+.svc-rows{list-style:none}
+.svc-row{display:grid;grid-template-columns:34px 1fr;gap:18px;align-items:start;padding:28px 0;border-top:1px solid var(--rule);position:relative;overflow:hidden}
+.svc-row:last-child{border-bottom:1px solid var(--rule)}
+.svc-row::before{content:'';position:absolute;inset:0;background:var(--ink);transform:scaleX(0);transform-origin:left;transition:transform .6s cubic-bezier(.16,1,.3,1)}
+.svc-row:hover::before{transform:scaleX(1)}
+.svc-row>*{position:relative;z-index:1;transition:color .3s}
+.svc-row:hover .svc-n,.svc-row:hover .svc-name,.svc-row:hover .svc-desc,.svc-row:hover .svc-cta{color:var(--bg)!important}
+.svc-n{font-family:var(--serif);font-size:.8rem;color:var(--muted)}
+.svc-name{font-family:var(--serif);font-size:clamp(1.6rem,2.5vw,2.8rem);font-weight:500;letter-spacing:-.02em;line-height:1.1}
+.svc-desc{grid-column:2;font-size:.82rem;color:var(--muted);line-height:1.65}
+.svc-cta{grid-column:2;font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);text-align:left;font-family:var(--sans);text-decoration:none}
+
+/* STATEMENT */
+.statement{padding:72px 20px;border-top:1px solid var(--rule);display:flex;justify-content:center}
+.stmt-text{font-family:var(--serif);font-size:clamp(2rem,4vw,4.5rem);font-weight:400;line-height:1.15;letter-spacing:-.02em;text-align:center;max-width:22ch}
+.stmt-text em{font-style:italic;font-weight:300;color:var(--muted)}
+.stmt-word{display:inline-block;overflow:hidden;vertical-align:bottom}
+.stmt-word-inner{display:inline-block}
+
+/* STATS */
+.stats-section{border-top:1px solid var(--rule);display:grid;grid-template-columns:repeat(2,1fr)}
+.stat-item{padding:36px 20px;border-right:1px solid var(--rule);border-bottom:1px solid var(--rule)}
+.stat-item:nth-child(2n){border-right:none}
+.stat-item:last-child{border-right:none}
+.stat-num{font-family:var(--serif);font-size:clamp(2.8rem,4.5vw,5rem);font-weight:500;line-height:1;letter-spacing:-.04em;display:block;margin-bottom:.6rem}
+.stat-label{display:block;font-size:.7rem;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;line-height:1.6}
+
+/* WORK */
+.work-grid{display:grid;grid-template-columns:1fr;gap:14px;margin-top:40px}
+.work-card{position:relative;min-height:320px;border-radius:14px;overflow:hidden;background:#14110f}
+.work-bg{position:absolute;inset:0;transition:transform .8s cubic-bezier(.16,1,.3,1)}
+.work-bg img{width:100%;height:100%;object-fit:cover;display:block}
+.work-card:hover .work-bg{transform:scale(1.06)}
+.work-info{position:absolute;inset:0;padding:24px;display:flex;flex-direction:column;justify-content:flex-end;background:linear-gradient(to top,rgba(0,0,0,.72) 0%,rgba(0,0,0,.22) 44%,transparent 72%)}
+.work-num{font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.58);margin-bottom:auto}
+.work-title{font-family:var(--serif);font-size:1.6rem;font-weight:500;color:#fff;line-height:1.15;letter-spacing:-.02em;margin-bottom:.4rem}
+.work-type{font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.72)}
+
+/* APPROACH */
+.approach-grid{display:grid;grid-template-columns:1fr;gap:48px;align-items:start}
+.approach-title{font-family:var(--serif);font-size:clamp(2.5rem,5vw,5.5rem);font-weight:500;line-height:.95;letter-spacing:-.04em;margin-bottom:2rem}
+.approach-line{display:block;overflow:hidden}
+.approach-line-inner{display:block}
+.approach-desc{font-size:.9rem;color:var(--muted);line-height:1.8}
+.pts{list-style:none;margin-top:.5rem}
+.pt{border-top:1px solid var(--rule);padding:22px 0;display:grid;grid-template-columns:36px 1fr;gap:20px}
+.pt:last-child{border-bottom:1px solid var(--rule)}
+.pt-n{font-size:.72rem;color:var(--muted);padding-top:3px}
+.pt h4{font-family:var(--serif);font-size:1.05rem;font-weight:500;margin-bottom:.3rem}
+.pt p{font-size:.82rem;color:var(--muted);line-height:1.65}
+
+/* CONTACT */
+.contact-section{padding:80px 20px;border-top:1px solid var(--rule);text-align:center;display:flex;flex-direction:column;align-items:center;gap:1.5rem}
+.contact-eyebrow{font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+.contact-big{font-family:var(--serif);font-size:clamp(3.5rem,9vw,10rem);font-weight:500;line-height:.9;letter-spacing:-.05em;overflow:hidden}
+.contact-big-inner{display:block;overflow:hidden}
+.contact-big a{color:var(--ink);text-decoration:none;transition:opacity .25s}
+.contact-big a:hover{opacity:.45}
+.contact-note{font-size:.88rem;color:var(--muted);max-width:34ch;line-height:1.7}
+.contact-btn{display:inline-flex;align-items:center;gap:.8rem;background:var(--ink);color:var(--bg);padding:1rem 2.5rem;border-radius:100px;font-family:var(--sans);font-size:.75rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;transition:background .2s,gap .2s}
+.contact-btn:hover{background:#2d2520;gap:1.1rem}
+
+/* FOOTER */
+footer{padding:28px 20px;border-top:1px solid var(--rule);display:flex;flex-direction:column;align-items:flex-start;gap:18px}
+.f-logo{font-family:var(--serif);font-size:1rem;font-weight:600;color:var(--ink);text-decoration:none}
+.f-copy{font-size:.72rem;color:var(--muted)}
+.f-links{display:flex;flex-wrap:wrap;gap:1rem 1.5rem;list-style:none}
+.f-links a{font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color .2s}
+.f-links a:hover{color:var(--ink)}
+
+/* RESPONSIVE */
+@media(pointer:fine){
+  body{cursor:none}
+  .cur{display:block}
+  .svc-row,.work-card{cursor:none}
+}
+@media(min-width:720px){
+  .hero{padding:28px}
+  .hero-media{inset:18px;border-radius:22px}
+  .menu-toggle{display:none}
+  .bottom-nav{left:50%;right:auto;bottom:40px;transform:translateX(-50%);display:flex;align-items:center;gap:10px;white-space:nowrap}
+  .bottom-nav a{padding:.55rem 1.3rem;font-size:.67rem}
+  .section{padding:104px 48px}
+  .statement{padding:96px 48px}
+  .contact-section{padding:112px 48px}
+  footer{padding:28px 48px;flex-direction:row;align-items:center}
+  .work-grid{grid-template-columns:repeat(12,1fr);gap:16px;margin-top:48px}
+  .work-card{min-height:360px;border-radius:16px}
+  .work-card--wide{grid-column:span 7}
+  .work-card--compact{grid-column:span 5}
+  .work-card--tall{min-height:420px}
+  .approach-grid{grid-template-columns:1fr 1fr;gap:64px}
+}
+@media(min-width:960px){
+  .section{padding:120px 80px}
+  .statement{padding:100px 80px}
+  .contact-section{padding:120px 80px}
+  footer{padding:28px 80px}
+  .svc-row{grid-template-columns:56px 1fr 1fr 140px;gap:40px;align-items:center;padding:32px 0}
+  .svc-desc,.svc-cta{grid-column:auto}
+  .svc-cta{text-align:right}
+  .stats-section{grid-template-columns:repeat(4,1fr)}
+  .stat-item{padding:64px 56px;border-bottom:none}
+  .stat-item:nth-child(2n){border-right:1px solid var(--rule)}
+  .stat-item:last-child{border-right:none}
+  .approach-grid{gap:100px}
+}
+</style>
+</head>
+<body>
+
+<div class="cur" id="cur"></div>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="hero-media" aria-hidden="true">
+    <img src="hero.png" alt="">
+  </div>
+  <div class="floatie f-circle" style="width:22px;height:22px;background:var(--c1);opacity:.8;top:18%;left:12%;filter:drop-shadow(0 3px 8px rgba(0,0,0,.12))" data-speed="0.04"></div>
+  <div class="floatie f-circle" style="width:8px;height:8px;background:var(--c5);top:32%;left:22%;opacity:.9" data-speed="0.07"></div>
+  <div class="floatie f-circle" style="width:14px;height:14px;background:var(--c3);opacity:.75;top:60%;left:8%;filter:drop-shadow(0 2px 5px rgba(0,0,0,.1))" data-speed="0.035"></div>
+  <div class="floatie f-circle" style="width:10px;height:10px;background:var(--c6);top:75%;left:28%;opacity:.85" data-speed="0.06"></div>
+  <div class="floatie f-circle" style="width:18px;height:18px;background:var(--c2);opacity:.75;top:22%;right:14%;filter:drop-shadow(0 3px 8px rgba(0,0,0,.12))" data-speed="0.045"></div>
+  <div class="floatie f-circle" style="width:9px;height:9px;background:var(--c7);top:40%;right:10%;opacity:.9" data-speed="0.065"></div>
+  <div class="floatie f-circle" style="width:26px;height:26px;background:#D9C9BE;opacity:.55;top:65%;right:18%;filter:drop-shadow(0 4px 10px rgba(0,0,0,.07))" data-speed="0.025"></div>
+  <div class="floatie f-circle" style="width:7px;height:7px;background:var(--c4);top:80%;right:32%;opacity:.95" data-speed="0.08"></div>
+  <div class="floatie f-pill" style="width:34px;height:10px;background:var(--c5);opacity:.75;top:28%;left:6%;transform:rotate(-15deg)" data-speed="0.055"></div>
+  <div class="floatie f-pill" style="width:22px;height:8px;background:var(--c8);opacity:.8;top:55%;right:7%;transform:rotate(8deg)" data-speed="0.04"></div>
+  <div class="floatie f-pill" style="width:40px;height:10px;background:var(--c3);opacity:.65;top:82%;left:16%;transform:rotate(20deg)" data-speed="0.03"></div>
+  <div class="floatie f-ring" style="width:18px;height:18px;color:var(--c4);top:48%;left:5%;opacity:.65" data-speed="0.06"></div>
+  <div class="floatie f-ring" style="width:24px;height:24px;color:var(--c1);top:15%;right:26%;opacity:.5" data-speed="0.033"></div>
+  <div class="floatie f-ring" style="width:14px;height:14px;color:var(--c6);top:70%;right:8%;opacity:.75" data-speed="0.07"></div>
+  <div class="floatie f-blob" style="width:22px;height:18px;background:var(--c2);opacity:.7;top:36%;left:30%;filter:drop-shadow(0 2px 6px rgba(0,0,0,.1))" data-speed="0.05"></div>
+  <div class="floatie f-blob" style="width:17px;height:14px;background:var(--c7);opacity:.75;top:62%;right:28%;filter:drop-shadow(0 2px 5px rgba(0,0,0,.1))" data-speed="0.042"></div>
+  <div class="floatie f-star" style="width:12px;height:12px;font-size:12px;color:var(--c5);top:14%;left:38%;opacity:.8" data-speed="0.06">✦</div>
+  <div class="floatie f-star" style="width:9px;height:9px;font-size:9px;color:var(--c3);top:78%;right:44%;opacity:.75" data-speed="0.05">✶</div>
+  <div class="floatie f-star" style="width:10px;height:10px;font-size:10px;color:var(--c6);top:42%;right:4%;opacity:.7" data-speed="0.08">★</div>
+  <div class="floatie f-code" style="color:var(--muted);top:20%;right:5%;transform:rotate(6deg)" data-speed="0.038">&lt;/&gt;</div>
+  <div class="floatie f-code" style="color:var(--muted);top:88%;left:42%;transform:rotate(-4deg)" data-speed="0.06">fn()</div>
+  <div class="floatie f-code" style="color:var(--muted);top:52%;left:2%;transform:rotate(10deg)" data-speed="0.045">AI</div>
+  <div class="floatie f-tri" style="border-width:0 8px 14px 8px;border-color:transparent transparent var(--c3) transparent;top:45%;left:38%;opacity:.65" data-speed="0.07"></div>
+  <div class="floatie f-tri" style="border-width:0 6px 11px 6px;border-color:transparent transparent var(--c4) transparent;top:25%;right:38%;opacity:.6;transform:rotate(180deg)" data-speed="0.05"></div>
+  <div class="floatie" style="width:10px;height:10px;background:var(--c4);opacity:.7;top:68%;left:44%;transform:rotate(22deg)" data-speed="0.055"></div>
+  <div class="floatie" style="width:7px;height:7px;background:var(--c5);opacity:.85;top:35%;right:42%;transform:rotate(45deg)" data-speed="0.072"></div>
+  <div class="floatie f-circle" style="width:9px;height:9px;background:var(--c1);opacity:.75;top:11%;left:26%" data-speed="0.052"></div>
+  <div class="floatie f-circle" style="width:6px;height:6px;background:var(--c8);opacity:.85;top:29%;right:31%" data-speed="0.076"></div>
+  <div class="floatie f-pill" style="width:18px;height:6px;background:var(--c4);opacity:.62;top:58%;left:21%;transform:rotate(-24deg)" data-speed="0.046"></div>
+  <div class="floatie f-ring" style="width:11px;height:11px;color:var(--c7);top:71%;left:36%;opacity:.68" data-speed="0.066"></div>
+  <div class="floatie f-star" style="width:8px;height:8px;font-size:8px;color:var(--c2);top:18%;right:48%;opacity:.72" data-speed="0.058">✦</div>
+  <div class="floatie f-blob" style="width:12px;height:10px;background:var(--c6);opacity:.58;top:84%;right:22%" data-speed="0.038"></div>
+  <div class="floatie" style="width:6px;height:6px;background:var(--c3);opacity:.78;top:46%;left:18%;transform:rotate(45deg)" data-speed="0.081"></div>
+  <div class="floatie f-code" style="color:var(--muted);top:73%;right:40%;transform:rotate(4deg)" data-speed="0.048">{ }</div>
+
+  <button class="menu-toggle" type="button" aria-label="Ouvrir le menu" aria-controls="mobileMenu" aria-expanded="false">
+    <span></span>
+    <span></span>
+  </button>
+
+  <nav class="bottom-nav">
+    <a href="#services">Services</a>
+    <a href="#work">Projets</a>
+    <a href="#approach">Approche</a>
+    <a href="#contact">Contact</a>
+  </nav>
+</section>
+
+<nav class="mobile-menu" id="mobileMenu" aria-label="Navigation mobile">
+  <button class="mobile-menu-close" type="button" aria-label="Fermer le menu"></button>
+  <ul class="mobile-menu-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#work">Projets</a></li>
+    <li><a href="#approach">Approche</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- TICKER -->
+<div class="ticker" aria-hidden="true">
+  <div class="ticker-track">
+    <span class="ticker-item">Landing Pages <span class="ticker-sep">&#10022;</span></span>
+    <span class="ticker-item">Sites Vitrines <span class="ticker-sep">&#10022;</span></span>
+    <span class="ticker-item">R&eacute;servation en ligne <span class="ticker-sep">&#10022;</span></span>
+    <span class="ticker-item">Automatisations IA <span class="ticker-sep">&#10022;</span></span>
+    <span class="ticker-item">Design premium <span class="ticker-sep">&#10022;</span></span>
+    <span class="ticker-item">Lighthouse 95+ <span class="ticker-sep">&#10022;</span></span>
+    <span class="ticker-item">Code sur mesure <span class="ticker-sep">&#10022;</span></span>
+    <span class="ticker-item">R&eacute;sultats mesurables <span class="ticker-sep">&#10022;</span></span>
+    <span class="ticker-item">Agents IA <span class="ticker-sep">&#10022;</span></span>
+    <span class="ticker-item">SEO &amp; Performance <span class="ticker-sep">&#10022;</span></span>
+    <span class="ticker-item">Landing Pages <span class="ticker-sep">&#10022;</span></span>
+    <span class="ticker-item">Sites Vitrines <span class="ticker-sep">&#10022;</span></span>
+    <span class="ticker-item">R&eacute;servation en ligne <span class="ticker-sep">&#10022;</span></span>
+    <span class="ticker-item">Automatisations IA <span class="ticker-sep">&#10022;</span></span>
+    <span class="ticker-item">Design premium <span class="ticker-sep">&#10022;</span></span>
+    <span class="ticker-item">Lighthouse 95+ <span class="ticker-sep">&#10022;</span></span>
+    <span class="ticker-item">Code sur mesure <span class="ticker-sep">&#10022;</span></span>
+    <span class="ticker-item">R&eacute;sultats mesurables <span class="ticker-sep">&#10022;</span></span>
+    <span class="ticker-item">Agents IA <span class="ticker-sep">&#10022;</span></span>
+    <span class="ticker-item">SEO &amp; Performance <span class="ticker-sep">&#10022;</span></span>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<section class="section" id="services">
+  <div class="s-label js-label">Ce que nous faisons</div>
+  <ul class="svc-rows">
+    <li class="svc-row js-svc">
+      <span class="svc-n">01</span>
+      <span class="svc-name">Landing Pages</span>
+      <span class="svc-desc">Pages de vente con&ccedil;ues pour transformer vos visiteurs en clients. Copy, design et performance &mdash; tout est optimis&eacute; pour convertir.</span>
+      <a href="services/landing-pages/" class="svc-cta">En savoir plus &#8599;</a>
+    </li>
+    <li class="svc-row js-svc">
+      <span class="svc-n">02</span>
+      <span class="svc-name">Sites Vitrines</span>
+      <span class="svc-desc">Une identit&eacute; digitale qui inspire confiance. Code sur mesure, design premium, z&eacute;ro template WordPress ni Webflow bas de gamme.</span>
+      <a href="services/sites-vitrines/" class="svc-cta">En savoir plus &#8599;</a>
+    </li>
+    <li class="svc-row js-svc">
+      <span class="svc-n">03</span>
+      <span class="svc-name">R&eacute;servation en ligne</span>
+      <span class="svc-desc">Syst&egrave;mes de r&eacute;servation sur mesure int&eacute;gr&eacute;s &agrave; votre site. Agenda temps r&eacute;el, paiement en ligne, rappels automatiques &mdash; pr&ecirc;t &agrave; encaisser d&egrave;s le lancement.</span>
+      <a href="services/reservation/" class="svc-cta">En savoir plus &#8599;</a>
+    </li>
+    <li class="svc-row js-svc">
+      <span class="svc-n">04</span>
+      <span class="svc-name">Automatisations IA</span>
+      <span class="svc-desc">Agents IA, chatbots, workflows automatis&eacute;s. Des syst&egrave;mes qui r&eacute;duisent les t&acirc;ches r&eacute;p&eacute;titives et amplifient votre &eacute;quipe.</span>
+      <a href="services/automatisations-ia/" class="svc-cta">En savoir plus &#8599;</a>
+    </li>
+  </ul>
+</section>
+
+<!-- STATEMENT -->
+<section class="statement" id="statement">
+  <p class="stmt-text" id="stmtText">
+    Nous apportons <em>clart&eacute; et pr&eacute;cision</em> &agrave; votre pr&eacute;sence digitale.
+  </p>
+</section>
+
+<!-- STATS -->
+<div class="stats-section" id="stats">
+  <div class="stat-item js-stat-item">
+    <span class="stat-num js-counter" data-count="30" data-suffix="+">0+</span>
+    <span class="stat-label">Projets<br>livr&eacute;s</span>
+  </div>
+  <div class="stat-item js-stat-item">
+    <span class="stat-num js-counter" data-count="14" data-suffix="j">0j</span>
+    <span class="stat-label">D&eacute;lai moyen<br>de livraison</span>
+  </div>
+  <div class="stat-item js-stat-item">
+    <span class="stat-num js-counter" data-count="95" data-suffix="+">0+</span>
+    <span class="stat-label">Score Lighthouse<br>garanti</span>
+  </div>
+  <div class="stat-item js-stat-item">
+    <span class="stat-num js-counter" data-count="100" data-suffix="%">0%</span>
+    <span class="stat-label">Satisfaction<br>client</span>
+  </div>
+</div>
+
+<!-- WORK -->
+<section class="section" id="work">
+  <div class="s-label js-label">Projets s&eacute;lectionn&eacute;s</div>
+  <div class="work-grid">
+    <div class="work-card work-card--wide js-card">
+      <div class="work-bg">
+        <img src="landing-page.png" alt="Landing page sur ordinateur portable">
+      </div>
+      <div class="work-info">
+        <span class="work-num">01 / 04</span>
+        <div>
+          <div class="work-title">+240&thinsp;% de<br>conversion</div>
+          <div class="work-type">Landing Page &middot; Design &middot; Dev</div>
+        </div>
+      </div>
+    </div>
+    <div class="work-card work-card--compact js-card">
+      <div class="work-bg">
+        <img src="site-vitrine.png" alt="Site vitrine sur ordinateur portable">
+      </div>
+      <div class="work-info">
+        <span class="work-num">02 / 04</span>
+        <div>
+          <div class="work-title">Identit&eacute; digitale<br>compl&egrave;te</div>
+          <div class="work-type">Site vitrine &middot; Branding &middot; SEO</div>
+        </div>
+      </div>
+    </div>
+    <div class="work-card work-card--compact work-card--tall js-card">
+      <div class="work-bg">
+        <img src="automatisation.png" alt="Interface d'automatisation IA sur ordinateur portable">
+      </div>
+      <div class="work-info">
+        <span class="work-num">03 / 04</span>
+        <div>
+          <div class="work-title">15&thinsp;h / semaine<br>automatis&eacute;es</div>
+          <div class="work-type">Automatisation &middot; IA &middot; Int&eacute;gration</div>
+        </div>
+      </div>
+    </div>
+    <div class="work-card work-card--wide work-card--tall js-card">
+      <div class="work-bg">
+        <img src="site-reservation.png" alt="Site de reservation en ligne sur ordinateur portable">
+      </div>
+      <div class="work-info">
+        <span class="work-num">04 / 04</span>
+        <div>
+          <div class="work-title">+300&thinsp;% de<br>r&eacute;servations</div>
+          <div class="work-type">R&eacute;servation &middot; Paiement &middot; Rappels</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- APPROACH -->
+<section class="section" id="approach">
+  <div class="s-label js-label">Notre approche</div>
+  <div class="approach-grid">
+    <div class="js-approach-left">
+      <h2 class="approach-title">
+        <span class="approach-line"><span class="approach-line-inner">Pourquoi</span></span>
+        <span class="approach-line"><span class="approach-line-inner">Kairo.</span></span>
+      </h2>
+      <p class="approach-desc js-approach-desc">Pas de templates. Pas de sous-traitance. Chaque projet est construit de z&eacute;ro &mdash; du brief &agrave; la mise en ligne &mdash; par un seul interlocuteur qui conna&icirc;t votre business.</p>
+    </div>
+    <div>
+      <ul class="pts">
+        <li class="pt js-pt">
+          <span class="pt-n">01</span>
+          <div>
+            <h4>Artisanat num&eacute;rique</h4>
+            <p>Chaque ligne de code est &eacute;crite pour votre projet. Performance Lighthouse 95+ garantie &agrave; chaque livraison.</p>
+          </div>
+        </li>
+        <li class="pt js-pt">
+          <span class="pt-n">02</span>
+          <div>
+            <h4>D&eacute;lais tenus</h4>
+            <p>14 jours pour une landing page. Prix fixe. Z&eacute;ro mauvaise surprise. La transparence est non-n&eacute;gociable.</p>
+          </div>
+        </li>
+        <li class="pt js-pt">
+          <span class="pt-n">03</span>
+          <div>
+            <h4>R&eacute;sultats mesurables</h4>
+            <p>Objectifs d&eacute;finis avant de coder. Taux de conversion, vitesse, leads g&eacute;n&eacute;r&eacute;s &mdash; tout est trac&eacute;.</p>
+          </div>
+        </li>
+        <li class="pt js-pt">
+          <span class="pt-n">04</span>
+          <div>
+            <h4>IA sur mesure</h4>
+            <p>Agents, chatbots, automatisations qui s&rsquo;adaptent &agrave; votre m&eacute;tier &mdash; et pas l&rsquo;inverse.</p>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact-section" id="contact">
+  <span class="contact-eyebrow js-contact-top">D&eacute;marrons ensemble</span>
+  <h2 class="contact-big">
+    <span class="contact-big-inner js-contact-line">Travaillons</span>
+    <span class="contact-big-inner js-contact-line"><a href="mailto:contact@kairodigital.fr">ensemble.</a></span>
+  </h2>
+  <p class="contact-note js-contact-top">D&eacute;crivez votre projet &mdash; on r&eacute;pond sous 24&thinsp;h avec une approche et un devis indicatif.</p>
+  <a href="mailto:contact@kairodigital.fr" class="contact-btn js-contact-top">D&eacute;marrer un projet &#8594;</a>
+</section>
+
+<!-- FOOTER -->
+<footer class="js-footer">
+  <a href="#" class="f-logo">Kairo Digital</a>
+  <span class="f-copy">&copy; 2026 &mdash; Agence Web &amp; IA, France</span>
+  <ul class="f-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#work">Projets</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script>
+/* CURSOR */
+const cur = document.getElementById('cur');
+let mx=0,my=0,cx=0,cy=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY});
+(function loop(){cx+=(mx-cx)*.1;cy+=(my-cy)*.1;cur.style.left=cx+'px';cur.style.top=cy+'px';requestAnimationFrame(loop)})();
+document.querySelectorAll('a,button,.svc-row,.work-card').forEach(el=>{
+  el.addEventListener('mouseenter',()=>cur.classList.add('big'));
+  el.addEventListener('mouseleave',()=>cur.classList.remove('big'));
+});
+
+/* MOBILE MENU */
+const menuToggle = document.querySelector('.menu-toggle');
+const mobileMenu = document.getElementById('mobileMenu');
+const menuClose = document.querySelector('.mobile-menu-close');
+function setMobileMenu(open){
+  if(!mobileMenu||!menuToggle)return;
+  mobileMenu.classList.toggle('is-open',open);
+  menuToggle.setAttribute('aria-expanded',String(open));
+  document.body.style.overflow = open ? 'hidden' : '';
+}
+menuToggle?.addEventListener('click',()=>setMobileMenu(true));
+menuClose?.addEventListener('click',()=>setMobileMenu(false));
+mobileMenu?.querySelectorAll('a').forEach(link=>{
+  link.addEventListener('click',()=>setMobileMenu(false));
+});
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape')setMobileMenu(false);
+});
+
+/* PARALLAX FLOATIES */
+const floaties=document.querySelectorAll('.floatie');
+const heroEl=document.getElementById('hero');
+const hcx=heroEl.offsetWidth/2,hcy=heroEl.offsetHeight/2;
+document.addEventListener('mousemove',e=>{
+  const dx=e.clientX-hcx,dy=e.clientY-hcy;
+  floaties.forEach(f=>{
+    const spd=parseFloat(f.dataset.speed)||0.05;
+    const rot=(f.style.transform.match(/rotate\([^)]+\)/)||[''])[0];
+    f.style.transform=rot?`translate(${dx*spd}px,${dy*spd}px) ${rot}`:`translate(${dx*spd}px,${dy*spd}px)`;
+  });
+});
+const fltStyle=document.createElement('style');
+let fltCSS='';
+floaties.forEach((f,i)=>{
+  const dur=(5+Math.random()*7).toFixed(2);
+  const del=(-(Math.random()*parseFloat(dur))).toFixed(2);
+  const amp=(3+Math.random()*6).toFixed(1);
+  const kf=`fo${i}`;
+  fltCSS+=`@keyframes ${kf}{0%,100%{margin-top:0}50%{margin-top:-${amp}px}}`;
+  f.style.animation=`${kf} ${dur}s ${del}s ease-in-out infinite`;
+});
+fltStyle.textContent=fltCSS;
+document.head.appendChild(fltStyle);
+
+/* GSAP SCROLL ANIMATIONS */
+gsap.registerPlugin(ScrollTrigger);
+
+/* Section labels */
+document.querySelectorAll('.js-label').forEach(el=>{
+  gsap.from(el,{scrollTrigger:{trigger:el,start:'top 88%'},opacity:0,x:-28,duration:.75,ease:'power3.out'});
+});
+
+/* Service rows */
+gsap.from('.js-svc',{
+  scrollTrigger:{trigger:'#services',start:'top 65%'},
+  y:60,opacity:0,duration:.9,stagger:.11,ease:'power3.out'
+});
+
+/* Statement — word by word */
+(function(){
+  const el=document.getElementById('stmtText');
+  if(!el)return;
+  function wrap(node){
+    if(node.nodeType===3){
+      const parts=node.textContent.split(/(\s+)/);
+      const frag=document.createDocumentFragment();
+      parts.forEach(w=>{
+        if(/^\s+$/.test(w)){frag.appendChild(document.createTextNode(w));}
+        else if(w){
+          const o=document.createElement('span');o.className='stmt-word';
+          const i=document.createElement('span');i.className='stmt-word-inner';
+          i.textContent=w;o.appendChild(i);frag.appendChild(o);
+        }
+      });
+      node.parentNode.replaceChild(frag,node);
+    }else if(node.nodeType===1){Array.from(node.childNodes).forEach(wrap);}
+  }
+  wrap(el);
+  gsap.from('#stmtText .stmt-word-inner',{
+    scrollTrigger:{trigger:'#statement',start:'top 68%'},
+    y:40,opacity:0,duration:.7,stagger:.04,ease:'power3.out'
+  });
+})();
+
+/* Stats — entry + counter */
+document.querySelectorAll('.js-stat-item').forEach((item,i)=>{
+  gsap.from(item,{scrollTrigger:{trigger:'#stats',start:'top 78%'},y:44,opacity:0,duration:.8,delay:i*.1,ease:'power3.out'});
+});
+document.querySelectorAll('.js-counter').forEach(el=>{
+  const target=parseInt(el.dataset.count);
+  const suffix=el.dataset.suffix||'';
+  const obj={val:0};
+  ScrollTrigger.create({trigger:el,start:'top 82%',once:true,onEnter(){
+    gsap.to(obj,{val:target,duration:1.8,ease:'power2.out',onUpdate(){el.textContent=Math.round(obj.val)+suffix;}});
+  }});
+});
+
+/* Work cards */
+gsap.from('.js-card',{
+  scrollTrigger:{trigger:'#work',start:'top 65%'},
+  scale:.88,opacity:0,duration:1,stagger:.13,ease:'power3.out',transformOrigin:'center bottom'
+});
+
+/* Approach title lines */
+gsap.from('.approach-line-inner',{
+  scrollTrigger:{trigger:'#approach',start:'top 72%'},
+  y:'105%',duration:.95,stagger:.14,ease:'power3.out'
+});
+gsap.from('.js-approach-desc',{
+  scrollTrigger:{trigger:'#approach',start:'top 72%'},
+  y:28,opacity:0,duration:.85,delay:.35,ease:'power2.out'
+});
+
+/* Approach points */
+gsap.from('.js-pt',{
+  scrollTrigger:{trigger:'.pts',start:'top 78%'},
+  y:36,opacity:0,duration:.75,stagger:.1,ease:'power2.out'
+});
+
+/* Contact lines — skew + rise */
+gsap.from('.js-contact-line',{
+  scrollTrigger:{trigger:'#contact',start:'top 70%'},
+  y:80,skewY:-2.5,opacity:0,duration:1.1,stagger:.14,ease:'power3.out'
+});
+gsap.from('.js-contact-top',{
+  scrollTrigger:{trigger:'#contact',start:'top 75%'},
+  opacity:0,y:20,duration:.8,stagger:.12,delay:.3,ease:'power2.out'
+});
+
+/* Footer */
+gsap.from('.js-footer',{
+  scrollTrigger:{trigger:'footer',start:'top 92%'},
+  opacity:0,y:18,duration:.7,ease:'power2.out'
+});
+</script>
+</body>
+</html>
