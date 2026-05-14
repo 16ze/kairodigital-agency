@@ -1,4 +1,26 @@
 {
   "cleanUrls": true,
-  "trailingSlash": false
+  "trailingSlash": true,
+  "redirects": [
+    {
+      "source": "/services/landing-pages.html",
+      "destination": "/services/landing-pages/",
+      "permanent": true
+    },
+    {
+      "source": "/services/sites-vitrines.html",
+      "destination": "/services/sites-vitrines/",
+      "permanent": true
+    },
+    {
+      "source": "/services/reservation.html",
+      "destination": "/services/reservation/",
+      "permanent": true
+    },
+    {
+      "source": "/services/automatisations-ia.html",
+      "destination": "/services/automatisations-ia/",
+      "permanent": true
+    }
+  ]
 }
